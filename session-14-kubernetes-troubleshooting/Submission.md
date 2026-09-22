@@ -71,6 +71,6 @@ Back-off restarting container
 # pending-pods
 ![](/assets/ss27.png)
 
-# service-dns-troubleshooting
+# service-dns-troubleshooting (Not fully complete)
 ![](/assets/ss28.png)
 ![](/assets/ss29.png)

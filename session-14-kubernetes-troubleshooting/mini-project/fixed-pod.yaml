@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: project-fixed-pod
+
+spec:
+  containers:
+    - name: app
+      image: ngninx:latest
