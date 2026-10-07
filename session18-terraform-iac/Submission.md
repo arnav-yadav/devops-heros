@@ -8,3 +8,9 @@
 
 # All Configurations
 ![](/assets/ss97.png)
+
+# Apply and Destroy
+![](/assets/ss106.png)
+![](/assets/ss107.png)
+![](/assets/ss108.png)
+![](/assets/ss109.png)
