@@ -54,7 +54,7 @@ jobs:
       # Security gate: unfixed CVEs in the base image are ignored, anything
       # HIGH or CRITICAL with a fix available fails the build.
       - name: Scan backend image
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: taskboard-backend:${{ github.sha }}
           severity: HIGH,CRITICAL
@@ -62,7 +62,7 @@ jobs:
           exit-code: '1'
 
       - name: Scan frontend image
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: taskboard-frontend:${{ github.sha }}
           severity: HIGH,CRITICAL
