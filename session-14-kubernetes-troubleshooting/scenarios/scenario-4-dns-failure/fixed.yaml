@@ -54,7 +54,16 @@ spec:
       args:
         - |
           echo "Attempting connection to internal database...";
-          curl -s --connect-timeout 3 http://postgres-db.default.svc.cluster.local:5432 \
-            && echo "[OK] Resolved and connected to postgres-db" ;
+          # retry: the backend Service may not have ready endpoints the instant
+          # this Pod starts, and a one-shot curl would race it
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null --connect-timeout 3 \
+                 http://postgres-db.default.svc.cluster.local:5432; then
+              echo "[OK] Resolved postgres-db.default.svc.cluster.local and connected";
+              break
+            fi
+            echo "  attempt $i: not reachable yet, retrying...";
+            sleep 2
+          done
           echo "Process sleeping...";
           sleep 3600

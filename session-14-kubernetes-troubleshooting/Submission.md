@@ -74,3 +74,27 @@ Back-off restarting container
 # service-dns-troubleshooting (Not fully complete)
 ![](/assets/ss28.png)
 ![](/assets/ss29.png)
+
+# Mini Project
+![](/assets/ss59.png)
+![](/assets/ss60.png)
+![](/assets/ss61.png)
+![](/assets/ss62.png)
+
+# Triage Gauntlet
+![](/assets/ss63.png)
+
+# crashloopbackoff
+![](/assets/ss64.png)
+
+# imagepullbackoff
+![](/assets/ss65.png)
+
+# pending
+![](/assets/ss66.png)
+
+# dns-failure
+![](/assets/ss67.png)
+
+# oomkilled
+![](/assets/ss68.png)

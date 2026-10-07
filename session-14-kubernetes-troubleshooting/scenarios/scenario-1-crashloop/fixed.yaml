@@ -24,7 +24,7 @@ spec:
           if not db_url:
               print("[FATAL ERROR]: DATABASE_URL environment variable is MISSING!", file=sys.stderr)
               sys.exit(1)
-          print("Application started successfully!")
-          print("Connected to:", db_url)
+          print("Application started successfully!", flush=True)
+          print("Connected to:", db_url, flush=True)
           while True:
               time.sleep(30)

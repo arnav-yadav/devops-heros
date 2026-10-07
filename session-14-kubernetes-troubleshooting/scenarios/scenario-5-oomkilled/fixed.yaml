@@ -17,11 +17,11 @@ spec:
         - "-c"
         - |
           import time
-          print("Allocating memory within limits...")
+          print("Allocating memory within limits...", flush=True)
           chunks = []
           for i in range(10):
               chunks.append(b"x" * (10 * 1024 * 1024))   # 10 x 10MB = 100MB
-          print("Allocated 100MB successfully, staying alive.")
+          print("Allocated 100MB successfully, staying alive.", flush=True)
           while True:
               time.sleep(30)
       resources:
