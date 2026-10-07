@@ -71,7 +71,7 @@ spec:
 **Option A: Override with --set flag**
 
 ```bash
-helm install my-app ./chart --set replicaCount=3
+helm install my-app ./my-app --set replicaCount=3
 ```
 
 **Option B: Override with a separate values file**
@@ -87,7 +87,7 @@ image:
 Install using it:
 
 ```bash
-helm install my-app ./chart -f values-prod.yaml
+helm install my-app ./my-app -f values-prod.yaml
 ```
 
 ---
@@ -97,7 +97,7 @@ helm install my-app ./chart -f values-prod.yaml
 Render templates and check:
 
 ```bash
-helm template my-app ./chart | grep "replicas:"
+helm template my-app ./my-app | grep "replicas:"
 ```
 
 Expected output:
@@ -109,7 +109,7 @@ Expected output:
 Now with override:
 
 ```bash
-helm template my-app ./chart --set replicaCount=3 | grep "replicas:"
+helm template my-app ./my-app --set replicaCount=3 | grep "replicas:"
 ```
 
 Expected output:

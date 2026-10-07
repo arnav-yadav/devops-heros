@@ -85,13 +85,13 @@ For almost all cases, use `application`.
 Run:
 
 ```bash
-helm lint my-app/
+helm lint ../05-values-yaml/my-app/
 ```
 
 Expected output:
 
 ```text
-==> Linting my-app/
+==> Linting ../05-values-yaml/my-app/
 1 chart(s) linted, 0 chart(s) failed
 ```
 
