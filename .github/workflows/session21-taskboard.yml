@@ -1,0 +1,82 @@
+# GitHub Actions only reads .github/workflows at the repository ROOT. The
+# session21-python/.github/workflows/ci-cd.yml copy documents the pipeline but
+# can never run, so this root-level workflow actually executes it. Paths are
+# prefixed with session21-python/ and a path filter keeps it from firing on
+# unrelated commits.
+name: Session 21 - TaskBoard CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'session21-python/**'
+      - '.github/workflows/session21-taskboard.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test - backend and frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+
+      - name: Install backend dependencies
+        working-directory: session21-python/backend
+        run: pip install -r requirements.txt
+
+      - name: Run backend tests
+        working-directory: session21-python/backend
+        run: pytest -q
+
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+
+      - name: Build frontend
+        working-directory: session21-python/frontend
+        run: npm install && npm run build
+
+  build-and-scan:
+    name: Build and scan images
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: docker build -t taskboard-backend:${{ github.sha }} ./session21-python/backend
+
+      - name: Build frontend image
+        run: docker build -t taskboard-frontend:${{ github.sha }} ./session21-python/frontend
+
+      # Security gate: unfixed CVEs in the base image are ignored, anything
+      # HIGH or CRITICAL with a fix available fails the build.
+      - name: Scan backend image
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: taskboard-backend:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+
+      - name: Scan frontend image
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: taskboard-frontend:${{ github.sha }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+
+  helm-validate:
+    name: Validate Helm chart
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+      - name: Lint chart
+        run: helm lint session21-python/helm/taskboard
+      - name: Render manifests
+        run: helm template taskboard session21-python/helm/taskboard | head -40

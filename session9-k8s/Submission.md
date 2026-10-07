@@ -36,3 +36,12 @@
 | ReplicaSet  | Maintain a desired number of Pod replicas                                  |
 | DaemonSet   | Run one Pod on each node                                                   |
 | StatefulSet | Manage stateful applications with persistent storage and stable identities |
+
+# Minikube and Cluster Status
+![](/assets/ss137.png)
+
+# Kubernetes Architecture
+![](/assets/ss138.png)
+
+# Kubernetes Basics
+![](/assets/ss139.png)
