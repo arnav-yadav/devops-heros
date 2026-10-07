@@ -1,0 +1,18 @@
+# The frontend image ships one nginx.conf used by both Docker Compose and
+# Kubernetes, and it proxies to the fixed host "backend". Under Compose that is
+# the service name; in Kubernetes the Service is release-prefixed, so nginx
+# fails to start with:
+#   [emerg] host not found in upstream "backend"
+# This alias Service gives the same Pods a stable "backend" name inside the
+# namespace, so one nginx.conf works in both places.
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels: {app: taskboard-backend}
+spec:
+  selector: {app: taskboard-backend}
+  ports:
+    - port: 8000
+      targetPort: 8000
+      name: http

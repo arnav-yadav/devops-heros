@@ -14,6 +14,7 @@ spec:
       containers:
       - name: frontend
         image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
+        imagePullPolicy: {{ .Values.frontend.pullPolicy | default "IfNotPresent" }}
         ports: [{containerPort: 80}]
         readinessProbe: {httpGet: {path: /, port: 80}, initialDelaySeconds: 5}
         livenessProbe: {httpGet: {path: /, port: 80}, initialDelaySeconds: 10}

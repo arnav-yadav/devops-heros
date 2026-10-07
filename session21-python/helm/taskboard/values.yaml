@@ -1,9 +1,12 @@
 frontend:
   image: ghcr.io/YOUR_ORG/taskboard-frontend
   tag: latest
+  # IfNotPresent lets a locally built image be used without a registry
+  pullPolicy: IfNotPresent
 backend:
   image: ghcr.io/YOUR_ORG/taskboard-backend
   tag: latest
+  pullPolicy: IfNotPresent
 replicaCount: 2
 namespace: taskboard
 imagePullSecrets: []
