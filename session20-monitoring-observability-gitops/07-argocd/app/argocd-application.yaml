@@ -8,9 +8,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/Nency-Ravaliya/gitops-demo.git
+    repoURL: https://github.com/arnav-yadav/devops-heros.git
     targetRevision: main
-    path: app
+    path: session20-monitoring-observability-gitops/05-introduction-to-gitops/app
 
   destination:
     server: https://kubernetes.default.svc

@@ -1,0 +1,12 @@
+# Provisions the Prometheus datasource automatically. Without this, Grafana
+# starts with no datasource at all and it has to be added by hand in the UI.
+# The URL is the compose service name, not localhost - Grafana resolves it on
+# the compose network.
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
