@@ -1,0 +1,31 @@
+# FIX: the container allocated ~1GB (100 x 10MB) against a 20Mi memory limit,
+# so the kernel OOM-killed it (exit code 137) -> CrashLoopBackOff.
+# Two changes: allocate a sane amount, and set a limit that fits the workload.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-5-oomkilled-pod
+  labels:
+    tier: triage-gauntlet
+    scenario: oomkilled
+spec:
+  containers:
+    - name: memory-leaker
+      image: python:3.11-alpine
+      command:
+        - "python3"
+        - "-c"
+        - |
+          import time
+          print("Allocating memory within limits...")
+          chunks = []
+          for i in range(10):
+              chunks.append(b"x" * (10 * 1024 * 1024))   # 10 x 10MB = 100MB
+          print("Allocated 100MB successfully, staying alive.")
+          while True:
+              time.sleep(30)
+      resources:
+        requests:
+          memory: "128Mi"
+        limits:
+          memory: "256Mi"

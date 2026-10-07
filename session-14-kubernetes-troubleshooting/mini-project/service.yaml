@@ -6,7 +6,7 @@ metadata:
 
 spec:
   selector:
-    app: wrong-app
+    app: troubleshooting-app
 
   ports:
     - port: 80

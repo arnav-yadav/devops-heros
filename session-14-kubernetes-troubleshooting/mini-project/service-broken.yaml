@@ -1,0 +1,18 @@
+# Step 8 of the mini-project: intentionally break the Service selector.
+# The selector below matches no Pods, so the Service will have no Endpoints
+# even though the Deployment is perfectly healthy.
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: troubleshooting-service
+
+spec:
+  selector:
+    app: wrong-app          # BUG: Deployment Pods are labelled app=troubleshooting-app
+
+  ports:
+    - port: 80
+      targetPort: 80
+
+  type: ClusterIP

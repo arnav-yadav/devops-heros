@@ -1,0 +1,21 @@
+# FIX: requests asked for 500 CPU *cores* and 1000Gi of memory, which no node
+# can satisfy, so the scheduler left the Pod Pending forever.
+# Right-sized to values a single-node cluster can actually schedule.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-3-pending-pod
+  labels:
+    tier: triage-gauntlet
+    scenario: pending
+spec:
+  containers:
+    - name: hungry-app
+      image: nginx:alpine
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "64Mi"
+        limits:
+          cpu: "200m"
+          memory: "128Mi"

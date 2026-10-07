@@ -1,0 +1,16 @@
+# FIX: the image "yatri-api-service:v999-invalid-tag-does-not-exist" has no
+# registry prefix and does not exist on Docker Hub -> ErrImagePull/ImagePullBackOff.
+# Replaced with a real, pullable image and an explicit tag.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-2-imagepull-pod
+  labels:
+    tier: triage-gauntlet
+    scenario: imagepull
+spec:
+  containers:
+    - name: web-app
+      image: nginx:1.27
+      ports:
+        - containerPort: 80
