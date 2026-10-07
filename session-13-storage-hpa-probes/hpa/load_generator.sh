@@ -62,5 +62,5 @@ echo "Press Ctrl-C to stop generating load."
 while true; do
   sleep 10
   kubectl get hpa yatri-backend-hpa --no-headers 2>/dev/null \
-    | awk '{printf "  %s  cpu=%-12s replicas=%s\n", strftime("%H:%M:%S"), $4, $7}'
+    | awk -v ts="$(date +%H:%M:%S)" '{printf "  %s  cpu=%-12s replicas=%s\n", ts, $4, $7}'
 done
