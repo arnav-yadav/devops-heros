@@ -12,3 +12,6 @@
 
 # Secret Scanning
 ![](/assets/ss105.png)
+
+# DevSecOps Pipeline
+![](/assets/ss116.png)
